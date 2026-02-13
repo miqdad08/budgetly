@@ -8,7 +8,12 @@ class Auth extends BaseController
 {
     public function login()
     {
-        helper(['form']);
+        $session = session();
+
+        if ($session->get('isLogin')) {
+            return redirect()->to('/dashboard');
+        }
+
         return view('auth/login');
     }
 
@@ -20,39 +25,31 @@ class Auth extends BaseController
 
     public function loginAction()
     {
-        $rules = [
-            'email' => 'required|valid_email',
-            'password' => 'required',
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('errors', $this->validator->getErrors());
-        }
-
         $session = session();
-        $userModel = new UserModel();
-        $email = $this->request->getVar('email');
-        $password = $this->request->getVar('password');
+        $model = new UserModel();
 
-        $user = $userModel->where('email', $email)->first();
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        $user = $model->where('email', $email)->first();
 
         if ($user && password_verify($password, $user['password'])) {
-            $session->set([
+            // Set session
+            $sessionData = [
+                'isLogin' => true,
                 'id' => $user['id'],
                 'name' => $user['name'],
                 'email' => $user['email'],
-                'isLogin' => true,
-            ]);
+            ];
+            $session->set($sessionData);
+
             return redirect()->to('/dashboard');
         } else {
-            return redirect()->back()->withInput()->with('error', 'Incorrect email or password. Please try again.');
+            $session->setFlashdata('error', 'Email atau password salah');
+            return redirect()->back()->withInput();
         }
     }
-
-    // ========== PROSES REGISTER ==========
+    
     public function registerSave()
     {
         $rules = [

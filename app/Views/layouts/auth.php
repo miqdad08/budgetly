@@ -11,118 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#13ec13",
-                        "background-light": "#f6f8f6",
-                        "background-dark": "#102210",
-                    },
-                    fontFamily: {
-                        display: ["Inter"]
-                    },
-                    borderRadius: {
-                        DEFAULT: "0.25rem",
-                        lg: "0.5rem",
-                        xl: "0.75rem",
-                        full: "9999px"
-                    },
-                },
-            },
-        };
-    </script>
+    <!-- Custom CSS -->
+    <link href="<?= base_url('assets/css/styles.css') ?>" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        .auth-card-shadow {
-            box-shadow: 0 10px 25px -5px rgba(19, 236, 19, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-        }
-
-        /* .toggle-active {
-            @apply bg-primary text-black rounded-md;
-        }
-
-        .toggle-active::after {
-            display: none;
-            /* hilangkan garis bawah */
-        /* } */
-
-        /* .toggle-inactive {
-            @apply bg-white text-gray-700 hover:bg-gray-100 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 rounded-md;
-        } */
-
-
-
-        /* Toast - muncul di dalam card, lebar penuh, animasi slide dari atas */
-        .toast-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            padding: 1rem 1rem 0 1rem;
-            pointer-events: none;
-        }
-
-        .toast {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.875rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            color: white;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            animation: slideDown 0.2s ease forwards;
-            width: 100%;
-            pointer-events: auto;
-        }
-
-        .toast-success {
-            background-color: #16a34a;
-        }
-
-        .toast-error {
-            background-color: #dc2626;
-        }
-
-        .toast .material-icons {
-            color: white;
-            font-size: 1.25rem;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .toast-remove {
-            animation: fadeOut 0.2s ease forwards;
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: translateY(-20%);
-            }
-        }
-    </style>
+    <!-- Tailwind Config (bisa dipisah ke JS) -->
+    <script src="<?= base_url('assets/js/dashboard.js') ?>"></script>
 </head>
 
 <body
@@ -189,7 +82,7 @@
 
     <script>
         // Toast System (ringkas, aman, auto-remove 5 detik)
-        (function () {
+        (function() {
             const container = document.getElementById('toastContainer');
             if (container) container.innerHTML = '';
 
@@ -220,20 +113,20 @@
             }
 
             <?php if (session()->getFlashdata('success')): ?>
-                showToast('<?= esc(session()->getFlashdata('success'), 'js') ?>', 'success');
+            showToast('<?= esc(session()->getFlashdata('success'), 'js') ?>', 'success');
             <?php endif; ?>
             <?php if (session()->getFlashdata('error')): ?>
-                showToast('<?= esc(session()->getFlashdata('error'), 'js') ?>', 'error');
+            showToast('<?= esc(session()->getFlashdata('error'), 'js') ?>', 'error');
             <?php endif; ?>
             <?php if ($errors = session()->getFlashdata('errors')): ?>
-                showToast('<?= esc(is_array($errors) ? implode('. ', $errors) : $errors, 'js') ?>', 'error');
+            showToast('<?= esc(is_array($errors) ? implode('. ', $errors) : $errors, 'js') ?>', 'error');
             <?php endif; ?>
         })();
 
         // Password Toggle
-        (function () {
+        (function() {
             document.querySelectorAll('.password-toggle').forEach(btn => {
-                btn.addEventListener('click', function (e) {
+                btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     const input = this.closest('.relative').querySelector('input');
                     const icon = this.querySelector('.material-icons');

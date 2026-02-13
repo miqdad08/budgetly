@@ -1,0 +1,91 @@
+/* Custom CSS */
+body {
+font-family: 'Inter', sans-serif;
+}
+
+/* Custom scrollbar untuk recent activity */
+.custom-scrollbar::-webkit-scrollbar {
+width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+background: #c1c1c1;
+border-radius: 10px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+background: #1e2a1e;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+background: #3a4a3a;
+}
+
+
+.auth-card-shadow {
+box-shadow: 0 10px 25px -5px rgba(19, 236, 19, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+}
+
+.toast-container {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+z-index: 50;
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+padding: 1rem 1rem 0 1rem;
+pointer-events: none;
+}
+
+.toast {
+display: flex;
+align-items: center;
+gap: 0.75rem;
+padding: 0.875rem 1rem;
+border-radius: 0.5rem;
+font-size: 0.875rem;
+color: white;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+animation: slideDown 0.2s ease forwards;
+width: 100%;
+pointer-events: auto;
+}
+
+.toast-success {
+background-color: #16a34a;
+}
+
+.toast-error {
+background-color: #dc2626;
+}
+
+.toast .material-icons {
+color: white;
+font-size: 1.25rem;
+}
+
+@keyframes slideDown {
+from {
+transform: translateY(-100%);
+opacity: 0;
+}
+
+to {
+transform: translateY(0);
+opacity: 1;
+}
+}
+
+.toast-remove {
+animation: fadeOut 0.2s ease forwards;
+}
+
+@keyframes fadeOut {
+to {
+opacity: 0;
+transform: translateY(-20%);
+}
+}
