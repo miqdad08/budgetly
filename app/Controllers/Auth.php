@@ -34,10 +34,10 @@ class Auth extends BaseController
         $user = $model->where('email', $email)->first();
 
         if ($user && password_verify($password, $user['password'])) {
-            // Set session
+            // Set session dengan key yang konsisten
             $sessionData = [
                 'isLogin' => true,
-                'id' => $user['id'],
+                'user_id' => $user['id'], // gunakan 'user_id', bukan 'id'
                 'name' => $user['name'],
                 'email' => $user['email'],
             ];
@@ -49,7 +49,7 @@ class Auth extends BaseController
             return redirect()->back()->withInput();
         }
     }
-    
+
     public function registerSave()
     {
         $rules = [
@@ -60,18 +60,26 @@ class Auth extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            // Validasi gagal -> kirim error per field
             return redirect()
                 ->back()
                 ->withInput()
                 ->with('errors', $this->validator->getErrors());
         }
 
-        $userModel = new UserModel();
-        $userModel->save([
+        $userModel = new \App\Models\UserModel();
+        $userId = $userModel->insert([
             'name' => $this->request->getVar('name'),
             'email' => $this->request->getVar('email'),
-            'password' => $this->request->getVar('password'),
+            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+        ]);
+
+        // Buat akun default untuk user baru
+        $accountModel = new \App\Models\AccountsModel();
+        $accountModel->insert([
+            'user_id' => $userId,
+            'name' => 'Bank',
+            'type' => 'bank',
+            'balance' => 0,
         ]);
 
         return redirect()->to('/login')->with('success', 'Registration successful! Please log in.');

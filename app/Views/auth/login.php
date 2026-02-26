@@ -5,12 +5,13 @@
 
 <!-- Toggle Buttons -->
 <div class="flex p-1 bg-gray-100 dark:bg-zinc-800 rounded-lg mb-8">
-    <span class="flex-1 py-2 text-sm font-medium rounded-md text-center bg-primary text-black">
+    <span
+        class="flex-1 py-2 text-sm font-medium rounded-md text-center bg-white text-gray-900 shadow-sm dark:bg-zinc-700 dark:text-white">
         Login
     </span>
-    <a href="<?= base_url(relativePath: 'register') ?>" class="flex-1 py-2 text-sm font-medium rounded-md text-center no-underline 
-              bg-gray-100 text-gray-700 hover:bg-white 
-              dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600">
+
+    <a href="<?= base_url('register') ?>"
+        class="flex-1 py-2 text-sm font-medium rounded-md text-center no-underline bg-gray-100 text-gray-700 dark:bg-zinc-700 dark:text-gray-200">
         Register
     </a>
 </div>
@@ -29,7 +30,8 @@
         <div class="relative">
             <span
                 class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">mail_outline</span>
-            <input type="email" id="loginEmail" name="email" value="<?= old('email') ?>" placeholder="name@company.com"
+            <input type="email" id="loginEmail" name="email" value="<?= old('email') ?>"
+                placeholder="name@company.com"
                 class="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-zinc-800 border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all dark:text-white"
                 required />
         </div>

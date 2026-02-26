@@ -4,12 +4,13 @@
 <?= $this->section('content') ?>
 <!-- Toggle -->
 <div class="flex p-1 bg-gray-100 dark:bg-zinc-800 rounded-lg mb-8">
-    <a href="<?= base_url('login') ?>" class="flex-1 py-2 text-sm font-medium rounded-md text-center no-underline 
-            bg-gray-100 text-gray-700 hover:bg-white
-            dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600">
+    <a href="<?= base_url('login') ?>"
+        class="flex-1 py-2 text-sm font-medium rounded-md text-center no-underline bg-gray-100 text-gray-700 dark:bg-zinc-700 dark:text-gray-200">
         Login
     </a>
-    <span class="flex-1 py-2 text-sm font-medium rounded-md text-center bg-primary text-black">
+
+    <span
+        class="flex-1 py-2 text-sm font-medium rounded-md text-center bg-white text-gray-900 shadow-sm dark:bg-zinc-700 dark:text-white">
         Register
     </span>
 </div>
