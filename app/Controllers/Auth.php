@@ -70,7 +70,7 @@ class Auth extends BaseController
         $userId = $userModel->insert([
             'name' => $this->request->getVar('name'),
             'email' => $this->request->getVar('email'),
-            'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+            'password' => $this->request->getVar('password'),
         ]);
 
         // Buat akun default untuk user baru
