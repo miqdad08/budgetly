@@ -82,7 +82,7 @@
 
     <script>
         // Toast System (ringkas, aman, auto-remove 5 detik)
-        (function() {
+        (function () {
             const container = document.getElementById('toastContainer');
             if (container) container.innerHTML = '';
 
@@ -113,20 +113,20 @@
             }
 
             <?php if (session()->getFlashdata('success')): ?>
-            showToast('<?= esc(session()->getFlashdata('success'), 'js') ?>', 'success');
+                showToast('<?= esc(session()->getFlashdata('success'), 'js') ?>', 'success');
             <?php endif; ?>
             <?php if (session()->getFlashdata('error')): ?>
-            showToast('<?= esc(session()->getFlashdata('error'), 'js') ?>', 'error');
+                showToast('<?= esc(session()->getFlashdata('error'), 'js') ?>', 'error');
             <?php endif; ?>
             <?php if ($errors = session()->getFlashdata('errors')): ?>
-            showToast('<?= esc(is_array($errors) ? implode('. ', $errors) : $errors, 'js') ?>', 'error');
+                showToast('<?= esc(is_array($errors) ? implode('. ', $errors) : $errors, 'js') ?>', 'error');
             <?php endif; ?>
         })();
 
         // Password Toggle
-        (function() {
+        (function () {
             document.querySelectorAll('.password-toggle').forEach(btn => {
-                btn.addEventListener('click', function(e) {
+                btn.addEventListener('click', function (e) {
                     e.preventDefault();
                     const input = this.closest('.relative').querySelector('input');
                     const icon = this.querySelector('.material-icons');

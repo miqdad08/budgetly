@@ -77,7 +77,7 @@
         <div class="relative">
             <span
                 class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">lock_outline</span>
-            <input type="password" id="regConfirm" name="confirm_password" placeholder="••••••••"
+            <input type="password" id="regConfirm" name="confirm" placeholder="••••••••"
                 class="w-full pl-10 pr-12 py-3 bg-gray-50 dark:bg-zinc-800 border-gray-200 dark:border-zinc-700 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all dark:text-white"
                 required>
             <button type="button"
