@@ -36,3 +36,39 @@ $routes->post('/profile/categories/store', 'Profile::storeCategory');
 $routes->get('/profile/categories/edit/(:num)', 'Profile::editCategory/$1');
 $routes->post('/profile/categories/update/(:num)', 'Profile::updateCategory/$1');
 $routes->post('/profile/categories/delete/(:num)', 'Profile::deleteCategory/$1');
+
+// Public API (tanpa token)
+$routes->post('api/auth/login', 'Api\Auth::login');
+$routes->post('api/auth/register', 'Api\Auth::register');
+
+// Protected API (dengan token)
+$routes->group('api', ['filter' => 'token'], function($routes) {
+    // Auth
+    $routes->post('auth/logout', 'Api\Auth::logout');
+
+    // Accounts
+    $routes->get('accounts', 'Api\Accounts::index');
+    $routes->get('accounts/(:num)', 'Api\Accounts::show/$1');
+    $routes->post('accounts', 'Api\Accounts::create');
+    $routes->put('accounts/(:num)', 'Api\Accounts::update/$1');
+    $routes->delete('accounts/(:num)', 'Api\Accounts::delete/$1');
+
+    // Categories
+    $routes->get('categories', 'Api\Categories::index');
+    $routes->get('categories/(:num)', 'Api\Categories::show/$1');
+    $routes->post('categories', 'Api\Categories::create');
+    $routes->put('categories/(:num)', 'Api\Categories::update/$1');
+    $routes->delete('categories/(:num)', 'Api\Categories::delete/$1');
+
+    // Transactions
+    $routes->get('transactions', 'Api\Transactions::index');
+    $routes->get('transactions/(:num)', 'Api\Transactions::show/$1');
+    $routes->post('transactions', 'Api\Transactions::create');
+    $routes->put('transactions/(:num)', 'Api\Transactions::update/$1');
+    $routes->delete('transactions/(:num)', 'Api\Transactions::delete/$1');
+    $routes->get('transactions/trends', 'Api\Transactions::trends');
+    $routes->get('transactions/recent', 'Api\Transactions::recent');
+
+    // Dashboard
+    $routes->get('dashboard', 'Api\Dashboard::index');
+});

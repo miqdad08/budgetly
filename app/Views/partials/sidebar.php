@@ -11,8 +11,8 @@
         $menuItems = [
             'dashboard' => ['url' => 'dashboard', 'icon' => 'dashboard', 'label' => 'Dashboard'],
             'transactions' => ['url' => 'transactions', 'icon' => 'receipt_long', 'label' => 'Transactions'],
-            'budgets' => ['url' => 'budgets', 'icon' => 'pie_chart', 'label' => 'Budgets'],
-            'reports' => ['url' => 'reports', 'icon' => 'insights', 'label' => 'Reports'],
+            // 'budgets' => ['url' => 'budgets', 'icon' => 'pie_chart', 'label' => 'Budgets'],
+            // 'reports' => ['url' => 'reports', 'icon' => 'insights', 'label' => 'Reports'],
             'profile' => ['url' => 'profile', 'icon' => 'account_circle', 'label' => 'Profile'],
         ];
 
@@ -26,11 +26,11 @@
                 ? 'bg-primary/10 text-primary'
                 : 'text-slate-500 hover:bg-primary/5 hover:text-primary';
             ?>
-                <a class="flex items-center gap-3 px-4 py-3 <?= $linkClass ?> transition-all rounded-xl"
-                    href="<?= site_url($item['url']) ?>">
-                    <span class="material-icons"><?= $item['icon'] ?></span>
-                    <span><?= $item['label'] ?></span>
-                </a>
+            <a class="flex items-center gap-3 px-4 py-3 <?= $linkClass ?> transition-all rounded-xl"
+                href="<?= site_url($item['url']) ?>">
+                <span class="material-icons"><?= $item['icon'] ?></span>
+                <span><?= $item['label'] ?></span>
+            </a>
         <?php endforeach; ?>
     </nav>
     <div class="p-4 border-t border-primary/10">
