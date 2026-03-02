@@ -2,7 +2,8 @@
 
 <?= $this->section('title') ?>Dashboard Overview<?= $this->endSection() ?>
 <?= $this->section('page_title') ?>Dashboard Overview<?= $this->endSection() ?>
-<?= $this->section('page_subtitle') ?>Welcome back, <?= esc($username) ?>! Manage your finances.<?= $this->endSection() ?>
+<?= $this->section('page_subtitle') ?>Welcome back, <?= esc($username) ?>! Manage your
+finances.<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 <div class="space-y-8">
@@ -72,7 +73,7 @@
 
     <!-- Main Grid: Chart & Recent Transactions -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Spending Trends -->
+
         <!-- Spending Trends -->
         <div class="lg:col-span-2 bg-white dark:bg-background-dark border border-primary/10 p-8 rounded-xl shadow-sm">
             <div class="flex items-center justify-between mb-8">
@@ -90,11 +91,19 @@
                 <div class="relative h-64 w-full flex items-end justify-between gap-2">
                     <?php
                     $maxValue = max($spendingTrends['data']) ?: 1;
-                    foreach ($spendingTrends['data'] as $value):
+                    foreach ($spendingTrends['data'] as $index => $value):
                         $height = ($value / $maxValue) * 100;
+                        $monthLabel = $spendingTrends['labels'][$index];
+                        $formattedValue = 'Rp ' . number_format($value, 0, ',', '.');
                         ?>
-                        <div class="flex-1 bg-primary/20 hover:bg-primary/30 transition-all rounded-t-lg"
-                            style="height: <?= $height ?>%"></div>
+                        <div class="flex-1 relative group h-full flex flex-col justify-end">
+                            <div
+                                class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none">
+                                <?= $monthLabel ?>: <?= $formattedValue ?>
+                            </div>
+                            <div class="w-full bg-primary/20 hover:bg-primary/30 transition-all rounded-t-lg"
+                                style="height: <?= $height ?>%"></div>
+                        </div>
                     <?php endforeach; ?>
                 </div>
                 <div class="flex justify-between mt-4 text-xs font-medium text-slate-400">
