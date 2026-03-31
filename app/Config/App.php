@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public string $baseURL = 'http://localhost:8080/';
+    public string $baseURL = 'https://budgetly.42web.io/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

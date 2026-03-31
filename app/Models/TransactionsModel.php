@@ -84,9 +84,7 @@ class TransactionsModel extends Model
         return $this->where('category_id', $categoryId);
     }
 
-    // --------------------------------------------------------------------
-    // Callback Methods
-    // --------------------------------------------------------------------
+
     protected function afterInsertTransaction(array $data)
     {
         if (!isset($data['id']) && !isset($data['data']['id'])) {
@@ -107,8 +105,7 @@ class TransactionsModel extends Model
 
     protected function updateAccountBalanceAfterDelete(array $data)
     {
-        // Untuk soft delete, tidak perlu mengubah balance
-        // Jika ingin hard delete, tambahkan logika di sini
+    
         return true;
     }
 

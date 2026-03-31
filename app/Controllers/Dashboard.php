@@ -87,13 +87,7 @@ class Dashboard extends BaseController
         return $result['total'] ?? 0;
     }
 
-    /**
-     * Mengambil data pengeluaran per bulan untuk periode tertentu
-     *
-     * @param int $userId
-     * @param int $months Jumlah bulan (6 atau 12)
-     * @return array
-     */
+
     private function getSpendingTrends($userId, $months = 6)
     {
         $months = (int) $months;

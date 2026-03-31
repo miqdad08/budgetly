@@ -91,14 +91,23 @@ class Transactions extends BaseController
         $start = $month . '-01';
         $end = date('Y-m-t', strtotime($start));
 
-        $result = $this->transactionsModel->select('SUM(amount) as total')->where('user_id', $userId)->where('type', $type)->where('date >=', $start)->where('date <=', $end)->get()->getRowArray();
+        $result = $this->transactionsModel
+        ->select('SUM(amount) as total')
+        ->where('user_id', $userId)
+        ->where('type', $type)
+        ->where('date >=', $start)
+        ->where('date <=', $end)
+        ->get()->getRowArray();
 
         return $result['total'] ?? 0;
     }
 
     private function getAvailableMonths($userId)
     {
-        $rows = $this->transactionsModel->select("DATE_FORMAT(date, '%Y-%m') as month", false)->where('user_id', $userId)->groupBy('month')->orderBy('month', 'DESC')->findAll();
+        $rows = $this->transactionsModel->select("DATE_FORMAT(date, '%Y-%m') as month", false)
+        ->where('user_id', $userId)
+        ->groupBy('month')->orderBy('month', 'DESC')
+        ->findAll();
 
         $months = [];
         foreach ($rows as $row) {
@@ -109,7 +118,9 @@ class Transactions extends BaseController
 
     private function getTransactionHistory($userId, $month, $categoryId = null, $search = null, $page = 1, $perPage = 10)
     {
-        $builder = $this->transactionsModel->select('transactions.*, categories.name as category_name, categories.type as category_type')->join('categories', 'categories.id = transactions.category_id', 'left')->where('transactions.user_id', $userId);
+        $builder = $this->transactionsModel->select('transactions.*, categories.name as category_name, categories.type as category_type')
+        ->join('categories', 'categories.id = transactions.category_id', 'left')
+        ->where('transactions.user_id', $userId);
 
         if ($month) {
             $start = $month . '-01';
@@ -202,6 +213,22 @@ class Transactions extends BaseController
         return view('transactions/edit', $data);
     }
 
+     public function delete($id)
+    {
+        $userId = session()->get('user_id');
+        $transaction = $this->transactionsModel->where('user_id', $userId)->find($id);
+        if (!$transaction) {
+            return redirect()->to('/transactions')->with('error', 'Transaksi tidak ditemukan');
+        }
+
+        if ($this->transactionsModel->deleteTransaction($id)) {
+            session()->setFlashdata('success', 'Transaksi berhasil dihapus dan saldo diperbarui');
+        } else {
+            session()->setFlashdata('error', 'Gagal menghapus transaksi');
+        }
+        return redirect()->to('/transactions');
+    }
+
     public function update($id)
     {
         $userId = session()->get('user_id');
@@ -283,22 +310,6 @@ class Transactions extends BaseController
         }
 
         session()->setFlashdata('success', 'Transaksi berhasil diperbarui');
-        return redirect()->to('/transactions');
-    }
-
-    public function delete($id)
-    {
-        $userId = session()->get('user_id');
-        $transaction = $this->transactionsModel->where('user_id', $userId)->find($id);
-        if (!$transaction) {
-            return redirect()->to('/transactions')->with('error', 'Transaksi tidak ditemukan');
-        }
-
-        if ($this->transactionsModel->deleteTransaction($id)) {
-            session()->setFlashdata('success', 'Transaksi berhasil dihapus dan saldo diperbarui');
-        } else {
-            session()->setFlashdata('error', 'Gagal menghapus transaksi');
-        }
         return redirect()->to('/transactions');
     }
 }
